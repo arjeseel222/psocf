@@ -1,37 +1,7 @@
-import React, { useState , useEffect } from "react";
+import React, { useState } from "react";
 import { X } from "lucide-react";
-import { useNavigate , useLocation } from "react-router-dom"; // Import useHistory hook for navigation
-import './MovieSeatSelector.css';
-import axios from 'axios';
-import './PaymentPage.css';
-
-const API_URL = process.env.REACT_APP_API_URL || 'https://psoc-2.onrender.com/api';
-
-const PaymentPage = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { selectedSeats = [], userId } = location.state || {};
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
-
-  const totalAmount = selectedSeats.length * 10;
-
-  const handlePayment = async () => {
-    try {
-      await axios.post(`${API_URL}/seats/confirm`, {
-        seats: selectedSeats,
-        userId,
-        paymentStatus: 'completed'
-      });
-      
-      setPaymentSuccess(true);
-      setTimeout(() => {
-        navigate('/');
-      }, 3000);
-    } catch (error) {
-      alert('Payment failed. Please try again.');
-      console.error('Error:', error);
-    }
-  };
+import { useNavigate } from "react-router-dom";
+import './components/MovieSeatSelector.css';
 
 const MovieSeatSelector = () => {
   const rowLabels = ['0', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
@@ -86,7 +56,7 @@ const MovieSeatSelector = () => {
 
   const handleConfirmBooking = () => {
     const updatedSeats = [...seats];
-    
+
     selectedSeats.forEach(seatId => {
       const rowLetter = seatId[0];
       const colIndex = parseInt(seatId.slice(1)) - 1;
@@ -95,12 +65,12 @@ const MovieSeatSelector = () => {
         updatedSeats[rowIndex][colIndex] = "booked";
       }
     });
-    
+
     setSeats(updatedSeats);
     setSelectedSeats([]);
 
     alert("Booking confirmed! You will be redirected to the payment page.");
-    
+
     // Redirect to the payment page with the selected seats as state
     navigate('/payment', { state: { selectedSeats } });
   };
@@ -109,7 +79,7 @@ const MovieSeatSelector = () => {
 
   const getSeatLabel = (seatId) => {
     const rowLabel = seatId[0];
-    const seatNumber = seatId.slice(1); // Extract seat number
+    const seatNumber = seatId.slice(1);
     return `Seat ${rowLabel}${seatNumber}`;
   };
 
@@ -146,22 +116,22 @@ const MovieSeatSelector = () => {
                 {seat === "selected" && <X />}
               </div>
             ))}
-            
+
             <div className="row-label">{rowLabels[rowIndex]}</div>
           </div>
         ))}
       </div>
-      
+
       <div className="seat-status">
         <button className="status available">Available</button>
         <button className="status selected">Selected</button>
         <button className="status booked">Booked</button>
       </div>
-      
+
       <div className="total-price">
         <h3>Total: ₱{totalPrice}</h3>
       </div>
-      
+
       {selectedSeats.length > 0 && (
         <button className="checkout" onClick={handleConfirmBooking}>Confirm Booking</button>
       )}
@@ -178,8 +148,6 @@ const MovieSeatSelector = () => {
       )}
     </div>
   );
-}};
-
-
+};
 
 export default MovieSeatSelector;
