@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD:components/MovieSeatSelector.js
 import './MovieSeatSelector.css';
+=======
+import './components/MovieSeatSelector.css';
+>>>>>>> 0fb727de014e0979bc01452e124ddaea734b568e:MovieSeatSelector.js
 
 const MovieSeatSelector = () => {
   const rowLabels = ['0', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
@@ -150,4 +154,8 @@ const MovieSeatSelector = () => {
   );
 };
 
+<<<<<<< HEAD:components/MovieSeatSelector.js
 export default MovieSeatSelector;
+=======
+export default MovieSeatSelector;
+>>>>>>> 0fb727de014e0979bc01452e124ddaea734b568e:MovieSeatSelector.js
