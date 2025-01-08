@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation , useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './PaymentPage.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_API_URL || 'https://psoc-2.onrender.com/api/';
 
 const PaymentPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { selectedSeats = [], userId } = location.state || {};
+  const { selectedSeats = [] } = location.state || {};
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   const totalAmount = selectedSeats.length * 10;
@@ -17,7 +17,6 @@ const PaymentPage = () => {
     try {
       await axios.post(`${API_URL}/seats/confirm`, {
         seats: selectedSeats,
-        userId,
         paymentStatus: 'completed'
       });
       
@@ -29,17 +28,6 @@ const PaymentPage = () => {
       alert('Payment failed. Please try again.');
       console.error('Error:', error);
     }
-  };
-
-const PaymentPage = () => {
-  const location = useLocation();
-  const { selectedSeats = [] } = location.state || {};  // Get selectedSeats from state
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
-
-  const totalAmount = selectedSeats.length * 10;
-
-  const handlePayment = () => {
-    setPaymentSuccess(true);
   };
 
   useEffect(() => {
@@ -82,6 +70,6 @@ const PaymentPage = () => {
       {paymentSuccess && <div className="success-message">Payment Successful! Thank you for booking with us.</div>}
     </div>
   );
-}};
+};
 
 export default PaymentPage;
