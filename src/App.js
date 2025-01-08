@@ -1,8 +1,8 @@
 import React from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MovieSeatSelector from './components/MovieSeatSelector';
 import PaymentPage from './components/PaymentPage';
+import './App.css';
 
 function App() {
   return (

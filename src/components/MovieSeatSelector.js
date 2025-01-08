@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD:components/MovieSeatSelector.js
 import './MovieSeatSelector.css';
-=======
-import './components/MovieSeatSelector.css';
->>>>>>> 0fb727de014e0979bc01452e124ddaea734b568e:MovieSeatSelector.js
 
 const MovieSeatSelector = () => {
   const rowLabels = ['0', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
@@ -60,7 +56,7 @@ const MovieSeatSelector = () => {
 
   const handleConfirmBooking = () => {
     const updatedSeats = [...seats];
-
+    
     selectedSeats.forEach(seatId => {
       const rowLetter = seatId[0];
       const colIndex = parseInt(seatId.slice(1)) - 1;
@@ -69,13 +65,12 @@ const MovieSeatSelector = () => {
         updatedSeats[rowIndex][colIndex] = "booked";
       }
     });
-
+    
     setSeats(updatedSeats);
     setSelectedSeats([]);
 
     alert("Booking confirmed! You will be redirected to the payment page.");
-
-    // Redirect to the payment page with the selected seats as state
+    
     navigate('/payment', { state: { selectedSeats } });
   };
 
@@ -120,22 +115,22 @@ const MovieSeatSelector = () => {
                 {seat === "selected" && <X />}
               </div>
             ))}
-
+            
             <div className="row-label">{rowLabels[rowIndex]}</div>
           </div>
         ))}
       </div>
-
+      
       <div className="seat-status">
         <button className="status available">Available</button>
         <button className="status selected">Selected</button>
         <button className="status booked">Booked</button>
       </div>
-
+      
       <div className="total-price">
         <h3>Total: ₱{totalPrice}</h3>
       </div>
-
+      
       {selectedSeats.length > 0 && (
         <button className="checkout" onClick={handleConfirmBooking}>Confirm Booking</button>
       )}
@@ -154,8 +149,4 @@ const MovieSeatSelector = () => {
   );
 };
 
-<<<<<<< HEAD:components/MovieSeatSelector.js
 export default MovieSeatSelector;
-=======
-export default MovieSeatSelector;
->>>>>>> 0fb727de014e0979bc01452e124ddaea734b568e:MovieSeatSelector.js
