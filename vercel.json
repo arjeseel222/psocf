@@ -3,21 +3,26 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/node",
-      "config": { "maxLambdaSize": "15mb" }
+      "use": "@vercel/static-build",
+      "config": { "distDir": "build" }
     }
   ],
   "routes": [
     {
-      "src": "^/static/(.*)",
+      "src": "/static/(.*)",
       "dest": "/static/$1"
     },
     {
-      "src": ".*",
+      "src": "/favicon.ico",
+      "dest": "/favicon.ico"
+    },
+    {
+      "src": "/manifest.json",
+      "dest": "/manifest.json"
+    },
+    {
+      "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "CI": "false"
-  }
+  ]
 }
